@@ -1,0 +1,30 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class DeleteQuestion extends CI_Controller {
+
+    public function __construct() {
+        parent::__construct();
+        // Load necessary models, libraries, helpers, etc. if needed
+        $this->load->database(); // Load database library
+    }
+
+    public function delete_question() {
+        // Get the ID of the question to be deleted from POST request
+        $id = $this->input->post('id');
+
+        // Escape the ID to prevent SQL injection
+        $id = $this->db->escape_str($id);
+
+        // Prepare the SQL query
+        $sql = "DELETE FROM questions WHERE id = '$id'";
+
+        // Execute the query
+        if ($this->db->query($sql)) {
+            echo 1; // Success
+        } else {
+            echo $this->db->error(); // Display database error
+        }
+    }
+}
+?>
